@@ -20,6 +20,14 @@ async def get_user_plans(telegram_id: int, session: AsyncSession):
     result = await session.execute(select(UserPlan).where(UserPlan.user_id == user.id))
     return result.scalars().all()
 
+@with_session
+async def update_user_plans(plan_id, plan_name, new_exercises, session: AsyncSession):
+    result = await session.execute(select(UserPlan).where(and_(UserPlan.id == plan_id)))
+    user_plan = result.scalars().first()
+    if user_plan.plan_name != plan_name:
+        user_plan.plan_name = plan_name
+    user_plan.exercises = json.dumps(new_exercises, ensure_ascii=False)
+    await session.commit()
 
 @with_session
 async def create_user_plan(telegram_id: int, plan_name: str, exercises: dict, session: AsyncSession):
