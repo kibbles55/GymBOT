@@ -2,23 +2,12 @@ from aiogram_dialog import Window, Dialog
 from aiogram_dialog.widgets.kbd import SwitchTo, Button, Group, Select, Start
 from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.input import TextInput
-from states import CreatePlan, MainMenu
+from states import CreatePlan, MainMenu, MUSCLE_GROUPS
 from .handlers import (
     save_user_plan, clean_plan_exercises, save_training_name,
     delete_exercises_from_plan, muscle_handler, exercise_handler,
 )
 from crud import get_exercises
-
-
-MUSCLE_GROUPS = [
-    {"id": 1, "name": "Груди"},
-    {"id": 2, "name": "Спина"},
-    {"id": 3, "name": "Дельти"},
-    {"id": 4, "name": "Трицепс"},
-    {"id": 5, "name": "Біцепс"},
-    {"id": 6, "name": "Ноги"},
-    {"id": 7, "name": "Живіт"},
-]
 
 
 async def get_plan_exercises(dialog_manager, **kwargs):
